@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-season="default">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>500 · Alpha</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <div class="snow"></div>
+  <div id="cursor-glow"></div>
+
+  <main class="wrap" role="main">
+    <h1 class="code" data-text="500">500</h1>
+
+    <div class="msg">Internal server error. Something broke upstream.</div>
+    <div class="path" id="path"></div>
+
+    <div class="buttons">
+      <a class="btn" href="/">Back home</a>
+      <a class="btn" href="" id="retry">Retry</a>
+    </div>
+
+    <footer id="footer-text">no noise · no tracking · no ads · no explanation</footer>
+  </main>
+
+  <script>
+    // ===== Season Detection =====
+    (function () {
+      const now = new Date();
+      const m = now.getMonth() + 1;
+      const d = now.getDate();
+
+      let currentSeason = "default";
+      if ((m === 10 && d >= 25) || (m === 11 && d <= 2)) currentSeason = "halloween";
+      if ((m === 12 && d >= 15) || (m === 1 && d <= 5)) currentSeason = "christmas";
+
+      document.documentElement.dataset.season = currentSeason;
+    })();
+
+    // footer seasonal text
+    (function () {
+      const s = document.documentElement.dataset.season;
+      const footer = document.getElementById('footer-text');
+      if (s === 'halloween') footer.textContent = 'trick or treat · no bugs · clean code';
+      else if (s === 'christmas') footer.textContent = 'silent night · clean signal';
+      else footer.textContent = 'no noise · no tracking · no ads · no explanation';
+    })();
+
+    // show requested path (real info)
+    (function () {
+      const el = document.getElementById('path');
+      el.textContent = location.pathname + location.search + location.hash;
+    })();
+
+    // retry = reload current url
+    (function () {
+      const r = document.getElementById('retry');
+      r.addEventListener('click', (e) => {
+        e.preventDefault();
+        location.reload();
+      });
+    })();
+
+    // cursor glow follow + snap on buttons
+    const glow = document.getElementById('cursor-glow');
+    const buttons = document.querySelectorAll('.btn');
+
+    let mouseX = innerWidth / 2, mouseY = innerHeight / 2;
+    let gx = mouseX, gy = mouseY;
+    let locked = false;
+
+    window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+    function animate() {
+      if (!locked) {
+        gx += (mouseX - gx) * 0.16;
+        gy += (mouseY - gy) * 0.16;
+        glow.style.left = gx + 'px';
+        glow.style.top = gy + 'px';
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    buttons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        const r = btn.getBoundingClientRect();
+        locked = true;
+
+        glow.style.left = (r.left + r.width / 2) + 'px';
+        glow.style.top  = (r.top + r.height / 2) + 'px';
+        glow.style.width = (r.width + 24) + 'px';
+        glow.style.height = (r.height + 24) + 'px';
+        glow.style.borderRadius = '18px';
+
+        glow.style.background = `
+          linear-gradient(90deg, var(--snap-soft), var(--snap-strong), var(--snap-soft)),
+          linear-gradient(0deg,  var(--snap-soft), var(--snap-strong), var(--snap-soft))
+        `;
+        glow.style.filter = 'blur(18px)';
+        glow.style.opacity = '.62';
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        locked = false;
+        glow.style.width = '260px';
+        glow.style.height = '260px';
+        glow.style.borderRadius = '50%';
+        glow.style.background = `radial-gradient(circle, var(--glow-main), var(--glow-soft), transparent 65%)`;
+        glow.style.filter = 'blur(20px)';
+        glow.style.opacity = '.9';
+      });
+    });
+  </script>
+</body>
+</html>
+

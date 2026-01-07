@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" data-season="default">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Alpha</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <div class="snow"></div>
+  <div id="cursor-glow"></div>
+
+  <div class="wrap">
+    <h1 class="title" data-text="ALPHA">ALPHA</h1>
+
+    <div class="sub">
+      <span>dev domain · minimal surface</span>
+      <span> · </span>
+      <kbd>Ctrl/⌘K</kbd>
+      <span>commands</span>
+    </div>
+
+    <div class="buttons">
+      <a class="btn github" href="https://github.com/AlphaGlyph1371" target="_blank" rel="noopener noreferrer">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg" alt="">
+        GitHub
+      </a>
+
+      <button class="btn discord" id="discordBtn" data-name="alphav5" type="button">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/discord.svg" alt="">
+        Discord: alphav5
+      </button>
+    </div>
+
+    <footer id="footer-text">no noise · no tracking · no ads · no explanation</footer>
+
+    <div class="meta" aria-hidden="true">
+      <div class="pill"><b>build</b>: 2026-01-07</div>
+      <div class="pill"><b>theme</b>: <span id="themeName">default</span></div>
+      <div class="pill"><b>motion</b>: <span id="motionName">full</span></div>
+    </div>
+  </div>
+
+  <!-- Command palette -->
+  <div class="palette-backdrop" id="palette" data-open="false" aria-hidden="true">
+    <div class="palette" role="dialog" aria-label="Command palette">
+      <div class="palette-top">
+        <input id="cmdInput" placeholder="Type a command… (github / discord / season / motion)" autocomplete="off" />
+        <div class="hint">Esc</div>
+      </div>
+      <div class="cmds" id="cmdList"></div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Season Detection =====
+    (function () {
+      const now = new Date();
+      const m = now.getMonth() + 1;
+      const d = now.getDate();
+
+      let currentSeason = "default";
+      if ((m === 10 && d >= 25) || (m === 11 && d <= 2)) currentSeason = "halloween";
+      if ((m === 12 && d >= 15) || (m === 1 && d <= 5)) currentSeason = "christmas";
+
+      document.documentElement.dataset.season = currentSeason;
+    })();
+
+    // ===== Discord Copy =====
+    const dBtn = document.getElementById('discordBtn');
+    async function copyDiscord() {
+      const name = dBtn.dataset.name;
+      try {
+        await navigator.clipboard.writeText(name);
+      } catch (e) {
+        const ta = document.createElement('textarea');
+        ta.value = name;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+      }
+      const old = dBtn.innerHTML;
+      dBtn.innerHTML = '✓ Copied';
+      setTimeout(() => dBtn.innerHTML = old, 1200);
+    }
+    dBtn.addEventListener('click', copyDiscord);
+
+    // ===== Footer seasonal text =====
+    (function () {
+      const s = document.documentElement.dataset.season;
+      const footer = document.getElementById('footer-text');
+
+      if (s === 'halloween') footer.textContent = 'trick or treat · no bugs · clean code';
+      else if (s === 'christmas') footer.textContent = 'silent night · clean signal';
+      else footer.textContent = 'no noise · no tracking · no ads · no explanation';
+    })();
+
+    // ===== Cursor Glow Follow + Snap =====
+    const glow = document.getElementById('cursor-glow');
+    const buttons = document.querySelectorAll('.btn');
+
+    let mouseX = innerWidth / 2;
+    let mouseY = innerHeight / 2;
+    let gx = mouseX;
+    let gy = mouseY;
+    let locked = false;
+
+    window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+    let rafId = null;
+    function animate() {
+      if (!locked) {
+        gx += (mouseX - gx) * 0.16;
+        gy += (mouseY - gy) * 0.16;
+        glow.style.left = gx + 'px';
+        glow.style.top = gy + 'px';
+      }
+      rafId = requestAnimationFrame(animate);
+    }
+    animate();
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (rafId) cancelAnimationFrame(rafId);
+      } else {
+        animate();
+      }
+    });
+
+    buttons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        const r = btn.getBoundingClientRect();
+        locked = true;
+
+        glow.style.left = (r.left + r.width / 2) + 'px';
+        glow.style.top = (r.top + r.height / 2) + 'px';
+        glow.style.width = (r.width + 24) + 'px';
+        glow.style.height = (r.height + 24) + 'px';
+        glow.style.borderRadius = '18px';
+
+        glow.style.background = `
+          linear-gradient(90deg, var(--snap-soft), var(--snap-strong), var(--snap-soft)),
+          linear-gradient(0deg, var(--snap-soft), var(--snap-strong), var(--snap-soft))
+        `;
+        glow.style.filter = 'blur(18px)';
+        glow.style.opacity = '.62';
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        locked = false;
+
+        glow.style.width = '260px';
+        glow.style.height = '260px';
+        glow.style.borderRadius = '50%';
+        glow.style.background = `
+          radial-gradient(circle, var(--glow-main), var(--glow-soft), transparent 65%)
+        `;
+        glow.style.filter = 'blur(20px)';
+        glow.style.opacity = '.9';
+      });
+    });
+
+    const themeEl = document.getElementById('themeName');
+    const motionEl = document.getElementById('motionName');
+
+    function tickMeta() {
+      themeEl.textContent = document.documentElement.dataset.season || 'default';
+      motionEl.textContent = document.documentElement.dataset.motion === 'reduced' ? 'reduced' : 'full';
+    }
+    tickMeta();
+    setInterval(tickMeta, 1000);
+
+    // ===== Command Palette =====
+    const palette = document.getElementById('palette');
+    const cmdInput = document.getElementById('cmdInput');
+    const cmdList = document.getElementById('cmdList');
+
+    const COMMANDS = [
+      {
+        key: 'github',
+        name: 'Open GitHub',
+        desc: 'Go to github.com/AlphaGlyph1371',
+        run: () => window.open('https://github.com/AlphaGlyph1371', '_blank', 'noopener,noreferrer')
+      },
+      {
+        key: 'discord',
+        name: 'Copy Discord',
+        desc: 'Copy: alphav5',
+        run: () => copyDiscord()
+      },
+      {
+        key: 'season',
+        name: 'Next Season Theme',
+        desc: 'Cycle: default → halloween → christmas',
+        run: () => window.season.next()
+      },
+      {
+        key: 'motion',
+        name: 'Toggle Reduced Motion',
+        desc: 'Disable animations if you want it calmer',
+        run: () => {
+          const html = document.documentElement;
+          html.dataset.motion = (html.dataset.motion === 'reduced') ? 'full' : 'reduced';
+          tickMeta();
+        }
+      }
+    ];
+
+    function openPalette() {
+      palette.dataset.open = "true";
+      palette.setAttribute('aria-hidden', 'false');
+      cmdInput.value = "";
+      renderCommands("");
+      cmdInput.focus();
+    }
+
+    function closePalette() {
+      palette.dataset.open = "false";
+      palette.setAttribute('aria-hidden', 'true');
+      cmdInput.blur();
+    }
+
+    function renderCommands(filter) {
+      const q = filter.trim().toLowerCase();
+      const items = COMMANDS.filter(c =>
+        !q ||
+        c.key.includes(q) ||
+        c.name.toLowerCase().includes(q) ||
+        c.desc.toLowerCase().includes(q)
+      );
+
+      cmdList.innerHTML = items.map(c => `
+        <div class="cmd" data-key="${c.key}">
+          <div class="left">
+            <div class="name">${c.name}</div>
+            <div class="desc">${c.desc}</div>
+          </div>
+          <kbd>↵</kbd>
+        </div>
+      `).join("");
+
+      cmdList.querySelectorAll('.cmd').forEach(el => {
+        el.addEventListener('click', () => {
+          const key = el.dataset.key;
+          const cmd = COMMANDS.find(x => x.key === key);
+          if (!cmd) return;
+          cmd.run();
+          closePalette();
+        });
+      });
+    }
+
+    cmdInput.addEventListener('input', e => renderCommands(e.target.value));
+    cmdInput.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closePalette();
+      if (e.key === 'Enter') {
+        const first = cmdList.querySelector('.cmd');
+        if (!first) return;
+        first.click();
+      }
+    });
+
+    palette.addEventListener('mousedown', (e) => {
+      if (e.target === palette) closePalette();
+    });
+
+    // hotkeys
+    window.addEventListener('keydown', (e) => {
+      const isMac = navigator.platform.toLowerCase().includes('mac');
+      const k = e.key.toLowerCase();
+
+      if ((isMac ? e.metaKey : e.ctrlKey) && k === 'k') {
+        e.preventDefault();
+        if (palette.dataset.open === "true") closePalette();
+        else openPalette();
+      }
+      if (k === '?' && palette.dataset.open !== "true") {
+        // quick open (optional)
+        openPalette();
+      }
+      if (e.key === 'Escape' && palette.dataset.open === "true") closePalette();
+    });
+
+    // ===== Console season control (kept) =====
+    window.season = {
+      set(name) {
+        const valid = ['default', 'halloween', 'christmas'];
+        if (!valid.includes(name)) return console.warn('Invalid:', name);
+
+        document.documentElement.dataset.season = name;
+
+        const footer = document.getElementById('footer-text');
+        if (name === 'halloween') footer.textContent = 'trick or treat · no bugs · clean code';
+        else if (name === 'christmas') footer.textContent = 'silent night · clean signal';
+        else footer.textContent = 'no noise · no tracking · no ads · no explanation';
+
+        tickMeta();
+        console.info('Season set to:', name);
+      },
+      current() { return document.documentElement.dataset.season; },
+      next() {
+        const order = ['default', 'halloween', 'christmas'];
+        const i = order.indexOf(this.current());
+        this.set(order[(i + 1) % order.length]);
+      }
+    };
+
+    console.info('%cCommands: Ctrl/⌘K', 'color: var(--accent); font-family: monospace');
+  </script>
+</body>
+
+</html>
+
