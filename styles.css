@@ -43,6 +43,49 @@ body {
   overflow: hidden;
 }
 
+/* Tempest red theme overrides */
+body.theme-tempest {
+  --bg: #090101;
+  --fg: #ffecec;
+  --muted: #d79a9a;
+  --accent: #ff3b3b;
+  --line: rgba(255, 255, 255, .10);
+  --glow-main: rgba(255, 59, 59, 0.42);
+  --glow-soft: rgba(255, 59, 59, 0.22);
+  --snap-strong: rgba(255, 59, 59, 0.45);
+  --snap-soft: rgba(255, 107, 107, 0.0);
+  --card: rgba(255, 255, 255, .055);
+  --card-2: rgba(255, 255, 255, .035);
+  --shadow: rgba(0, 0, 0, .7);
+  --kbd: rgba(255, 255, 255, .05);
+  --kbd-border: rgba(255, 255, 255, .10);
+  background:
+    radial-gradient(1100px 700px at 20% 20%, rgba(255, 59, 59, .30), transparent 62%),
+    radial-gradient(900px 600px at 80% 70%, rgba(160, 10, 10, .22), transparent 60%),
+    linear-gradient(180deg, #070101, #120202);
+}
+
+body.theme-tempest .wrap::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 59, 59, .35), transparent);
+}
+
+body.theme-tempest .btn::before {
+  background: linear-gradient(120deg,
+      transparent 0%,
+      rgba(255, 59, 59, .18) 45%,
+      transparent 70%);
+}
+
+body.theme-tempest .btn:hover {
+  border-color: rgba(255, 59, 59, .7);
+  background: rgba(255, 59, 59, .12);
+}
+
+body.theme-tempest .cmd:hover {
+  border-color: rgba(255, 59, 59, .6);
+  background: rgba(255, 59, 59, .08);
+}
+
 /* scanlines */
 body::before {
   content: "";
