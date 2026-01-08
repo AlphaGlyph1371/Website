@@ -13,6 +13,14 @@
   --shadow: rgba(0, 0, 0, .65);
   --kbd: rgba(255, 255, 255, .06);
   --kbd-border: rgba(255, 255, 255, .10);
+  --season-overlay-opacity: 0;
+  --season-overlay-image: none;
+  --season-overlay-animation: none;
+  --season-overlay-filter: none;
+  --season-overlay-blend: screen;
+  --season-badge-display: none;
+  --season-badge-bg: rgba(0, 0, 0, .35);
+  --season-icon: none;
 }
 
 * { box-sizing: border-box; }
@@ -41,6 +49,39 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+.glitch-defs {
+  position: fixed;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.season-overlay {
+  display: none;
+}
+
+.season-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--season-badge-bg);
+  background-image: var(--season-icon);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70% 70%;
+  border: 1px solid rgba(255, 255, 255, .12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .35);
+  display: var(--season-badge-display);
+  z-index: 3;
+}
+
+body.intro-glitch .wrap {
+  animation: glitchWrap 0.24s ease-out both;
 }
 
 /* Tempest red theme overrides */
@@ -121,10 +162,84 @@ body::after {
   to { background-position: 420px 840px; }
 }
 
+@keyframes springDrift {
+  from { background-position: 0 0; }
+  to { background-position: 420px 860px; }
+}
+
+@keyframes autumnDrift {
+  from { background-position: 0 0; }
+  to { background-position: -360px 720px; }
+}
+
+@keyframes summerShimmer {
+  0%, 100% { opacity: .18; }
+  50% { opacity: .28; }
+}
+
+@keyframes winterGlow {
+  0%, 100% { opacity: .2; }
+  50% { opacity: .32; }
+}
+
+@keyframes halloweenFlicker {
+  0%, 100% { opacity: .26; }
+  45% { opacity: .18; }
+  65% { opacity: .3; }
+}
+
+@keyframes glitchWrap {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) skew(0deg);
+    filter: url(#intro-glitch) contrast(1.6) brightness(1.35) grayscale(1);
+  }
+  10% {
+    opacity: .35;
+    transform: translate(-3px, 1px) skew(-0.6deg);
+    filter: url(#intro-glitch) contrast(1.55) brightness(1.3) grayscale(1);
+  }
+  24% {
+    opacity: 1;
+    transform: translate(4px, -2px) skew(0.8deg);
+    filter: url(#intro-glitch) contrast(1.5) brightness(1.25) grayscale(0.9);
+  }
+  38% {
+    opacity: .6;
+    transform: translate(-4px, 2px) skew(-0.9deg);
+    filter: url(#intro-glitch) contrast(1.4) brightness(1.2) grayscale(0.75);
+  }
+  54% {
+    opacity: 1;
+    transform: translate(2px, -1px) skew(0.4deg);
+    filter: url(#intro-glitch) contrast(1.3) brightness(1.15) grayscale(0.55);
+  }
+  70% {
+    opacity: .9;
+    transform: translate(-1px, 1px) skew(-0.2deg);
+    filter: url(#intro-glitch) contrast(1.18) brightness(1.08) grayscale(0.35);
+  }
+  84% {
+    opacity: 1;
+    transform: translate(0.6px, -0.2px) skew(0.1deg);
+    filter: url(#intro-glitch) contrast(1.08) brightness(1.03) grayscale(0.18);
+  }
+  94% {
+    opacity: 1;
+    transform: translate(0.2px, 0) skew(0.05deg);
+    filter: url(#intro-glitch) contrast(1.03) brightness(1.01) grayscale(0.08);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) skew(0deg);
+    filter: url(#intro-glitch) contrast(1) brightness(1) grayscale(0);
+  }
+}
+
 .wrap {
   position: relative;
   text-align: center;
-  padding: 34px 34px 22px;
+  padding: 46px 34px 22px;
   border-radius: 22px;
   min-width: 280px;
   max-width: 92vw;
@@ -136,6 +251,7 @@ body::after {
     inset 0 1px 0 rgba(255, 255, 255, .06);
   backdrop-filter: blur(16px);
   overflow: hidden;
+  transition: filter .12s ease-out, transform .12s ease-out, opacity .12s ease-out;
 }
 
 /* top highlight line */
@@ -277,6 +393,31 @@ body::after {
   font-size: 11px;
 }
 
+.kbd-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.kbd-btn kbd {
+  transition: background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+
+.kbd-btn:hover kbd {
+  background: rgba(141, 246, 255, .12);
+  border-color: rgba(141, 246, 255, .55);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .35);
+}
+
+.kbd-btn:focus-visible kbd {
+  border-color: rgba(141, 246, 255, .75);
+  box-shadow: 0 0 0 2px rgba(141, 246, 255, .25);
+}
+
 .msg {
   margin: 14px 0 0;
   font-family: "Space Mono";
@@ -386,6 +527,23 @@ footer {
   z-index: 2;
 }
 
+.meta-mini {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  z-index: 3;
+}
+
+.meta-mini .pill {
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
 .pill {
   font-family: "Space Mono";
   font-size: 11px;
@@ -399,6 +557,90 @@ footer {
 .pill b {
   color: rgba(230, 235, 255, .82);
   font-weight: 600;
+}
+
+.discord-card {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, .28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
+}
+
+.discord-avatar-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+}
+
+.discord-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, .15);
+}
+
+.discord-decoration {
+  position: absolute;
+  inset: -6px;
+  width: 56px;
+  height: 56px;
+  display: none;
+  animation: decoFloat 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.discord-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.discord-name {
+  font-family: "Space Mono";
+  font-size: 12px;
+  color: rgba(230, 235, 255, .95);
+}
+
+.discord-status {
+  font-family: "Space Mono";
+  font-size: 11px;
+  color: rgba(154, 163, 199, .9);
+  text-transform: lowercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.discord-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(154, 163, 199, .7);
+}
+
+.discord-status[data-status="online"]::before { background: #59f59a; }
+.discord-status[data-status="idle"]::before { background: #ffd166; }
+.discord-status[data-status="dnd"]::before { background: #ff6b6b; }
+.discord-status[data-status="offline"]::before { background: rgba(154, 163, 199, .6); }
+
+.discord-activity {
+  font-family: "Space Mono";
+  font-size: 11px;
+  color: rgba(154, 163, 199, .75);
+}
+
+@keyframes decoFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-2px) rotate(1deg); }
 }
 
 a, button, .btn, input, textarea, select, label { cursor: inherit !important; }
@@ -484,6 +726,24 @@ a, button, .btn, input, textarea, select, label { cursor: inherit !important; }
   white-space: nowrap;
 }
 
+.palette-top .kbd-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.palette-top .kbd-btn:hover .hint {
+  border-color: rgba(141, 246, 255, .55);
+  color: rgba(230, 235, 255, .92);
+  background: rgba(141, 246, 255, .08);
+}
+
+.palette-top .kbd-btn:focus-visible .hint {
+  border-color: rgba(141, 246, 255, .75);
+  box-shadow: 0 0 0 2px rgba(141, 246, 255, .25);
+}
+
 .cmds {
   padding: 10px;
   display: grid;
@@ -533,22 +793,144 @@ a, button, .btn, input, textarea, select, label { cursor: inherit !important; }
   color: rgba(230,235,255,.85);
 }
 
+/* ===== Seasonal: Spring ===== */
+html[data-season="spring"] {
+  --accent: #7dffb0;
+  --fg: #f1fff8;
+  --muted: #a7d9bf;
+  --glow-main: rgba(125, 255, 176, 0.35);
+  --glow-soft: rgba(125, 255, 176, 0.18);
+  --snap-strong: rgba(125, 255, 176, 0.32);
+  --snap-soft: rgba(125, 255, 176, 0.0);
+  --season-overlay-opacity: .22;
+  --season-overlay-image:
+    radial-gradient(circle at 10% 20%, rgba(255, 143, 177, .35) 0 2px, transparent 3px),
+    radial-gradient(circle at 35% 70%, rgba(255, 200, 221, .35) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 30%, rgba(255, 143, 177, .28) 0 2px, transparent 3px),
+    radial-gradient(circle at 90% 85%, rgba(255, 200, 221, .3) 0 2px, transparent 3px);
+  --season-overlay-animation: springDrift 18s linear infinite;
+  --season-overlay-filter: blur(.2px);
+  --season-badge-display: block;
+  --season-badge-bg: rgba(125, 255, 176, .18);
+  --season-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='4' fill='%23f7c948'/><circle cx='16' cy='6' r='5' fill='%23ff8fb1'/><circle cx='26' cy='16' r='5' fill='%23ff8fb1'/><circle cx='16' cy='26' r='5' fill='%23ff8fb1'/><circle cx='6' cy='16' r='5' fill='%23ff8fb1'/></svg>");
+}
+
+html[data-season="spring"] body {
+  background:
+    radial-gradient(900px 700px at 15% 20%, rgba(125, 255, 176, .2), transparent 62%),
+    radial-gradient(900px 700px at 85% 70%, rgba(255, 143, 177, .14), transparent 60%),
+    linear-gradient(180deg, #06120b, #0a1b12);
+}
+
+/* ===== Seasonal: Summer ===== */
+html[data-season="summer"] {
+  --accent: #ffd166;
+  --fg: #fff7e6;
+  --muted: #e4c48a;
+  --glow-main: rgba(255, 209, 102, 0.4);
+  --glow-soft: rgba(255, 209, 102, 0.2);
+  --snap-strong: rgba(255, 209, 102, 0.36);
+  --snap-soft: rgba(255, 209, 102, 0.0);
+  --season-overlay-opacity: .22;
+  --season-overlay-image:
+    radial-gradient(700px 700px at 10% 15%, rgba(255, 209, 102, .25), transparent 60%),
+    radial-gradient(900px 900px at 90% 20%, rgba(255, 240, 200, .18), transparent 60%);
+  --season-overlay-animation: summerShimmer 7s ease-in-out infinite;
+  --season-overlay-filter: blur(.3px);
+  --season-badge-display: block;
+  --season-badge-bg: rgba(255, 209, 102, .2);
+  --season-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='6' fill='%23ffd166'/><g stroke='%23ffd166' stroke-width='2' stroke-linecap='round'><line x1='16' y1='2' x2='16' y2='7'/><line x1='16' y1='25' x2='16' y2='30'/><line x1='2' y1='16' x2='7' y2='16'/><line x1='25' y1='16' x2='30' y2='16'/><line x1='6' y1='6' x2='9.5' y2='9.5'/><line x1='22.5' y1='22.5' x2='26' y2='26'/><line x1='6' y1='26' x2='9.5' y2='22.5'/><line x1='22.5' y1='9.5' x2='26' y2='6'/></g></svg>");
+}
+
+html[data-season="summer"] body {
+  background:
+    radial-gradient(1000px 700px at 20% 20%, rgba(255, 209, 102, .26), transparent 62%),
+    radial-gradient(900px 600px at 80% 70%, rgba(255, 240, 200, .18), transparent 60%),
+    linear-gradient(180deg, #120c03, #1a1205);
+}
+
+/* ===== Seasonal: Autumn ===== */
+html[data-season="autumn"] {
+  --accent: #ff9f43;
+  --fg: #fff1e0;
+  --muted: #d6b089;
+  --glow-main: rgba(255, 159, 67, 0.38);
+  --glow-soft: rgba(255, 159, 67, 0.2);
+  --snap-strong: rgba(255, 159, 67, 0.34);
+  --snap-soft: rgba(255, 159, 67, 0.0);
+  --season-overlay-opacity: .22;
+  --season-overlay-image:
+    radial-gradient(circle at 15% 25%, rgba(255, 159, 67, .35) 0 2px, transparent 3px),
+    radial-gradient(circle at 40% 75%, rgba(210, 120, 40, .32) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 30%, rgba(255, 159, 67, .28) 0 2px, transparent 3px),
+    radial-gradient(circle at 85% 85%, rgba(210, 120, 40, .3) 0 2px, transparent 3px);
+  --season-overlay-animation: autumnDrift 20s linear infinite;
+  --season-overlay-filter: blur(.25px);
+  --season-badge-display: block;
+  --season-badge-bg: rgba(255, 159, 67, .2);
+  --season-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 4 C22 8 26 14 26 20 C26 25 22 28 16 28 C10 28 6 25 6 20 C6 12 11 7 16 4 Z' fill='%23ff9f43'/><path d='M16 7 L16 25' stroke='%23d9791f' stroke-width='2' stroke-linecap='round'/></svg>");
+}
+
+html[data-season="autumn"] body {
+  background:
+    radial-gradient(900px 700px at 20% 20%, rgba(255, 159, 67, .22), transparent 62%),
+    radial-gradient(900px 600px at 80% 70%, rgba(210, 120, 40, .18), transparent 60%),
+    linear-gradient(180deg, #120a03, #1a0f05);
+}
+
+/* ===== Seasonal: Winter ===== */
+html[data-season="winter"] {
+  --accent: #8fd3ff;
+  --fg: #f3f9ff;
+  --muted: #bcd3e8;
+  --glow-main: rgba(143, 211, 255, 0.38);
+  --glow-soft: rgba(143, 211, 255, 0.2);
+  --snap-strong: rgba(143, 211, 255, 0.34);
+  --snap-soft: rgba(143, 211, 255, 0.0);
+  --season-overlay-opacity: .22;
+  --season-overlay-image:
+    radial-gradient(900px 700px at 20% 20%, rgba(180, 220, 255, .22), transparent 62%),
+    radial-gradient(900px 700px at 80% 75%, rgba(120, 170, 255, .14), transparent 60%);
+  --season-overlay-animation: winterGlow 10s ease-in-out infinite;
+  --season-overlay-filter: blur(.4px);
+  --season-badge-display: block;
+  --season-badge-bg: rgba(143, 211, 255, .18);
+  --season-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><g stroke='%23cfe6ff' stroke-width='2' stroke-linecap='round'><line x1='16' y1='4' x2='16' y2='28'/><line x1='4' y1='16' x2='28' y2='16'/><line x1='7' y1='7' x2='25' y2='25'/><line x1='7' y1='25' x2='25' y2='7'/></g></svg>");
+}
+
+html[data-season="winter"] body {
+  background:
+    radial-gradient(1000px 700px at 20% 20%, rgba(143, 211, 255, .25), transparent 62%),
+    radial-gradient(900px 600px at 80% 70%, rgba(120, 170, 255, .12), transparent 60%),
+    linear-gradient(180deg, #020712, #040b18);
+}
+
 /* ===== Seasonal: Halloween ===== */
 html[data-season="halloween"] {
-  --accent: #ff9f43;
-  --fg: #ffe7cc;
-  --muted: #caa36a;
-  --glow-main: rgba(255, 159, 67, 0.35);
-  --glow-soft: rgba(255, 159, 67, 0.18);
-  --snap-strong: rgba(255, 159, 67, 0.32);
-  --snap-soft: rgba(255, 159, 67, 0.0);
+  --accent: #ff6b3d;
+  --fg: #fff1e0;
+  --muted: #d6a482;
+  --glow-main: rgba(255, 107, 61, 0.45);
+  --glow-soft: rgba(255, 107, 61, 0.22);
+  --snap-strong: rgba(255, 107, 61, 0.38);
+  --snap-soft: rgba(255, 107, 61, 0.0);
+  --season-overlay-opacity: .26;
+  --season-overlay-image:
+    radial-gradient(900px 700px at 25% 20%, rgba(255, 106, 0, .22), transparent 62%),
+    radial-gradient(900px 700px at 85% 75%, rgba(120, 0, 0, .22), transparent 60%);
+  --season-overlay-animation: halloweenFlicker 6s steps(6) infinite;
+  --season-overlay-filter: blur(.5px);
+  --season-overlay-blend: screen;
+  --season-badge-display: block;
+  --season-badge-bg: rgba(255, 107, 61, .2);
+  --season-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='17' r='9' fill='%23ff8c1a'/><rect x='14' y='6' width='4' height='6' fill='%2388c057'/><circle cx='12' cy='17' r='2' fill='%234b2606'/><circle cx='20' cy='17' r='2' fill='%234b2606'/><rect x='12' y='21' width='8' height='2' fill='%234b2606'/></svg>");
 }
 
 html[data-season="halloween"] body {
   background:
-    radial-gradient(900px 600px at 80% 20%, rgba(255, 159, 67, .20), transparent 60%),
-    radial-gradient(900px 600px at 20% 70%, rgba(255, 159, 67, .10), transparent 60%),
-    linear-gradient(180deg, #0b0600, #140900);
+    radial-gradient(900px 600px at 80% 20%, rgba(255, 107, 61, .28), transparent 60%),
+    radial-gradient(900px 600px at 20% 70%, rgba(120, 0, 0, .18), transparent 60%),
+    linear-gradient(180deg, #0a0501, #140800);
 }
 
 /* ===== Seasonal: Christmas ===== */
@@ -556,17 +938,53 @@ html[data-season="christmas"] {
   --accent: #9fdcff;
   --fg: #f2f8ff;
   --muted: #b8d2ea;
-  --glow-main: rgba(159, 220, 255, 0.35);
-  --glow-soft: rgba(159, 220, 255, 0.18);
-  --snap-strong: rgba(159, 220, 255, 0.30);
+  --glow-main: rgba(159, 220, 255, 0.42);
+  --glow-soft: rgba(159, 220, 255, 0.2);
+  --snap-strong: rgba(159, 220, 255, 0.34);
   --snap-soft: rgba(159, 220, 255, 0.0);
+  --season-overlay-opacity: .24;
+  --season-overlay-image:
+    radial-gradient(1000px 700px at 20% 20%, rgba(200, 235, 255, .28), transparent 62%),
+    radial-gradient(900px 600px at 80% 70%, rgba(140, 200, 255, .16), transparent 60%);
+  --season-overlay-animation: winterGlow 9s ease-in-out infinite;
+  --season-overlay-filter: blur(.45px);
+  --season-badge-display: block;
+  --season-badge-bg: rgba(159, 220, 255, .2);
+  --season-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='17' r='7' fill='%23ffd7b3'/><path d='M7 15 C11 7 21 7 25 15' fill='%23e53935'/><circle cx='25' cy='15' r='3' fill='%23ffffff'/><path d='M9 22 C12 26 20 26 23 22' fill='%23ffffff'/></svg>");
 }
 
 html[data-season="christmas"] body {
   background:
-    radial-gradient(1000px 700px at 20% 20%, rgba(159, 220, 255, .25), transparent 62%),
-    radial-gradient(900px 600px at 80% 70%, rgba(159, 220, 255, .10), transparent 60%),
+    radial-gradient(1000px 700px at 20% 20%, rgba(159, 220, 255, .3), transparent 62%),
+    radial-gradient(900px 600px at 80% 70%, rgba(120, 180, 255, .16), transparent 60%),
     linear-gradient(180deg, #020612, #040b18);
+}
+
+/* ===== Seasonal: Christmas Eve ===== */
+html[data-season="christmas-eve"] {
+  --accent: #ffd166;
+  --fg: #fff7e6;
+  --muted: #e4c48a;
+  --glow-main: rgba(255, 209, 102, 0.45);
+  --glow-soft: rgba(255, 209, 102, 0.22);
+  --snap-strong: rgba(255, 209, 102, 0.4);
+  --snap-soft: rgba(255, 209, 102, 0.0);
+  --season-overlay-opacity: .26;
+  --season-overlay-image:
+    radial-gradient(900px 700px at 20% 20%, rgba(255, 209, 102, .28), transparent 62%),
+    radial-gradient(900px 600px at 80% 70%, rgba(255, 120, 120, .18), transparent 60%);
+  --season-overlay-animation: winterGlow 8s ease-in-out infinite;
+  --season-overlay-filter: blur(.4px);
+  --season-badge-display: block;
+  --season-badge-bg: rgba(255, 209, 102, .22);
+  --season-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polygon points='16,3 19,12 29,12 21,18 24,28 16,22 8,28 11,18 3,12 13,12' fill='%23ffd166'/></svg>");
+}
+
+html[data-season="christmas-eve"] body {
+  background:
+    radial-gradient(1000px 700px at 20% 20%, rgba(255, 209, 102, .3), transparent 62%),
+    radial-gradient(900px 600px at 80% 70%, rgba(255, 120, 120, .18), transparent 60%),
+    linear-gradient(180deg, #120604, #1a0a06);
 }
 
 /* reduced motion support */
@@ -592,7 +1010,9 @@ html[data-motion="reduced"] * {
   animation: snow 12s linear infinite;
 }
 
-html[data-season="christmas"] .snow { opacity: .33; }
+html[data-season="christmas"] .snow,
+html[data-season="christmas-eve"] .snow,
+html[data-season="winter"] .snow { opacity: .28; }
 
 @keyframes snow {
   from { background-position: 0 -120px; }
