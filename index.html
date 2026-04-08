@@ -5,12 +5,9 @@
   <meta charset="UTF-8" />
   <title>Alpha</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&family=Space+Mono:wght@400;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -18,62 +15,215 @@
   <div class="snow"></div>
   <div class="season-overlay" aria-hidden="true"></div>
   <div id="cursor-glow"></div>
+
   <svg class="glitch-defs" aria-hidden="true" focusable="false" width="0" height="0">
     <filter id="intro-glitch">
       <feTurbulence type="fractalNoise" baseFrequency="0.02 0.7" numOctaves="1" seed="2" result="noise">
-        <animate attributeName="seed" dur="0.24s" values="2;9;4;12;6;3;2" repeatCount="1" />
-        <animate attributeName="baseFrequency" dur="0.24s" values="0.02 0.7;0.12 1;0.06 0.85;0.03 0.75;0.02 0.7" repeatCount="1" />
+        <animate attributeName="seed" dur="0.3s" values="2;9;4;12;6;3;2" repeatCount="1" />
+        <animate attributeName="baseFrequency" dur="0.3s" values="0.02 0.7;0.12 1;0.06 0.85;0.03 0.75;0.02 0.7" repeatCount="1" />
       </feTurbulence>
       <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G">
-        <animate attributeName="scale" dur="0.24s" values="0;52;36;22;12;6;0" repeatCount="1" />
+        <animate attributeName="scale" dur="0.3s" values="0;60;42;28;14;6;0" repeatCount="1" />
       </feDisplacementMap>
     </filter>
   </svg>
 
-  <div class="wrap">
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo">α</div>
+    <div class="nav-links">
+      <a href="#about" class="nav-link">about</a>
+      <a href="#projects" class="nav-link">projects</a>
+      <a href="#stack" class="nav-link">stack</a>
+    </div>
+    <button class="kbd-btn nav-palette" id="openPaletteBtn" type="button" aria-label="Open command palette">
+      <kbd>⌘K</kbd>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
     <div class="season-badge" aria-hidden="true"></div>
     <div class="meta-mini" aria-hidden="true">
       <div class="pill"><b>theme</b>: <span id="themeName">default</span></div>
       <div class="pill"><b>motion</b>: <span id="motionName">full</span></div>
     </div>
-    <h1 class="title" data-text="ALPHA">ALPHA</h1>
 
-    <div class="sub">
-      <span>dev domain · minimal surface</span>
-      <span> · </span>
-      <button class="kbd-btn" id="openPaletteBtn" type="button" aria-label="Open command palette">
-        <kbd>Ctrl/⌘K</kbd>
-      </button>
-      <span>commands</span>
-    </div>
+    <div class="hero-inner">
+      <h1 class="title" data-text="ALPHA">ALPHA</h1>
+      <p class="sub">dev · minimal ui · just for fun</p>
 
-    <div class="buttons">
-      <a class="btn github" href="https://github.com/AlphaGlyph1371" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg" alt="">
-        GitHub
-      </a>
-
-      <button class="btn discord" id="discordBtn" data-name="alphav5" type="button">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/discord.svg" alt="">
-        Discord: alphav5
-      </button>
-    </div>
-
-    <div class="discord-card" id="discordCard" data-user-id="616347662718992394">
-      <div class="discord-avatar-wrap">
-        <img class="discord-avatar" alt="" />
-        <img class="discord-decoration" alt="" />
+      <div class="buttons">
+        <a class="btn github" href="https://github.com/AlphaGlyph1371" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg" alt="">
+          GitHub
+        </a>
+        <button class="btn discord" id="discordBtn" data-name="alphav5" type="button">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/discord.svg" alt="">
+          Discord: alphav5
+        </button>
       </div>
-      <div class="discord-info">
-        <div class="discord-name">Discord</div>
-        <div class="discord-status" data-status="offline">offline</div>
-        <div class="discord-activity">No activity</div>
+
+      <div class="discord-card" id="discordCard" data-user-id="616347662718992394">
+        <div class="discord-avatar-wrap">
+          <div class="discord-avatar-skeleton"></div>
+          <img class="discord-avatar" alt="" style="display:none" />
+          <img class="discord-decoration" alt="" />
+        </div>
+        <div class="discord-info">
+          <div class="discord-name">Discord</div>
+          <div class="discord-status" data-status="offline">loading…</div>
+          <div class="discord-activity">fetching presence</div>
+        </div>
       </div>
     </div>
 
-    <footer id="footer-text">no noise · no tracking · no ads · no explanation</footer>
+    <div class="scroll-hint" aria-hidden="true">
+      <span>scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
 
-  </div>
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-inner">
+      <div class="section-tag">01 / about</div>
+      <h2 class="section-title">just a <span class="accent-text">tech freak</span></h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>Hey — I'm Alpha. I build things on the internet mostly because it's fun, not because anyone asked me to. I like clean UIs, weird little tools, and optimizing every pixel until it feels <em>right</em>.</p>
+          <p>When I'm not coding I'm probably down a rabbit hole about hardware, networking, or playing some AAA games like Battlefield or Fortnite. No other nonsense here — just genuine curiosity and too much caffeine.</p>
+        </div>
+        <div class="about-tags">
+          <span class="tag">self-taught</span>
+          <span class="tag">open source</span>
+          <span class="tag">dark mode only :3</span>
+          <span class="tag">pls delete white mode</span>
+          <span class="tag">windows = ass</span>
+          <span class="tag">debloating winslop</span>
+          <span class="tag">perpetual learner</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="section-inner">
+      <div class="section-tag">02 / projects</div>
+      <h2 class="section-title">things i <span class="accent-text">built</span></h2>
+      <div class="projects-grid">
+
+        <a class="project-card private" href="#" target="_blank" rel="noopener noreferrer">
+          <div class="project-header">
+            <span class="project-status live">active</span>
+            <span class="project-arrow">🔒</span>
+          </div>
+          <h3 class="project-name">ZeroLimit / FortniteUnderground</h3>
+          <p class="project-desc">Still a private project to modify Fortnite and basically do whatever you want. Made for Latest and OG builds.</p>
+          <div class="project-stack">
+            <span>C++</span><span>Rust</span><span>JavaScript</span>
+          </div>
+        </a>
+
+        <a class="project-card private" href="#" target="_blank" rel="noopener noreferrer">
+          <div class="project-header">
+            <span class="project-status live">active</span>
+            <span class="project-arrow">🔒</span>
+          </div>
+          <h3 class="project-name">AlphaGlyph-LS</h3>
+          <p class="project-desc">Private link shortener that you'll find around my profile.</p>
+          <div class="project-stack">
+            <span>N/A</span>
+          </div>
+        </a>
+
+        <a class="project-card private" href="#" target="_blank" rel="noopener noreferrer">
+          <div class="project-header">
+            <span class="project-status wip">planned</span>
+            <span class="project-arrow">🔒</span>
+          </div>
+          <h3 class="project-name">ZeroForge</h3>
+          <p class="project-desc">A personal experiment that i want to code in the future. Game file explorer for a bunch of games.</p>
+          <div class="project-stack">
+            <span>C#</span>
+          </div>
+        </a>
+
+        <a class="project-card private" href="#" target="_blank" rel="noopener noreferrer">
+          <div class="project-header">
+            <span class="project-status archived">canceled</span>
+            <span class="project-arrow">🔒</span>
+          </div>
+          <h3 class="project-name">Atlas</h3>
+          <p class="project-desc">Old version of ZeroLimit / FortniteUnderground. Canceled due to no interest and bad code with last commit on 26.01.2025.</p>
+          <div class="project-stack">
+            <span>C#</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="https://ai-repertoire.com/" target="_blank" rel="noopener noreferrer">
+          <div class="project-header">
+            <span class="project-status archived">canceled</span>
+            <span class="project-arrow">↗</span>
+          </div>
+          <h3 class="project-name">AI-Repertoire</h3>
+          <p class="project-desc">File hosting service from me and a friend. Canceled due to high costs (also through war in Iran) on 08.04.2026.</p>
+          <div class="project-stack">
+            <span>Node.JS</span><span>JavaScript</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section class="section" id="stack">
+    <div class="section-inner">
+      <div class="section-tag">03 / stack</div>
+      <h2 class="section-title">what i <span class="accent-text">use</span></h2>
+      <div class="stack-grid">
+        <div class="stack-group">
+          <div class="stack-group-label">languages</div>
+          <div class="stack-items">
+            <div class="stack-item">C#</div>
+            <div class="stack-item">C++</div>
+            <div class="stack-item">Rust</div>
+            <div class="stack-item">JavaScript</div>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="stack-group-label">tools</div>
+          <div class="stack-items">
+            <div class="stack-item">VS & VS Code</div>
+            <div class="stack-item">Fiddler Classic</div>
+            <div class="stack-item">IDA Pro</div>
+            <div class="stack-item">Unreal Engine</div>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="stack-group-label">vibes</div>
+          <div class="stack-items">
+            <div class="stack-item">24/7 music</div>
+            <div class="stack-item">dark themes</div>
+            <div class="stack-item">coding</div>
+            <div class="stack-item">less is more</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div id="footer-text">no noise · no tracking · no ads · no explanation</div>
+    <div class="footer-links">
+      <a href="https://github.com/AlphaGlyph1371" target="_blank" rel="noopener noreferrer">github</a>
+      <span>·</span>
+      <button id="footerDiscordBtn" data-name="alphav5" type="button">discord</button>
+    </div>
+  </footer>
 
   <!-- Command palette -->
   <div class="palette-backdrop" id="palette" data-open="false" aria-hidden="true">
@@ -89,52 +239,72 @@
   </div>
 
   <script>
+    // ===== Font load gate for intro glitch =====
+    function runIntroGlitch() {
+      const html = document.documentElement;
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (html.dataset.motion === 'reduced' || prefersReduced) return;
+      document.body.classList.add('intro-glitch');
+      setTimeout(() => document.body.classList.remove('intro-glitch'), 400);
+    }
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(runIntroGlitch);
+    } else {
+      window.addEventListener('load', runIntroGlitch);
+    }
+
     // ===== Season Detection =====
     (function () {
       const now = new Date();
       const m = now.getMonth() + 1;
       const d = now.getDate();
+      let s = "default";
+      if (m === 12 && (d === 24 || d === 25)) s = "christmas-eve";
+      else if ((m === 10 && d >= 25) || (m === 11 && d <= 2)) s = "halloween";
+      else if ((m === 12 && d >= 15) || (m === 1 && d <= 5)) s = "christmas";
+      else if (m === 12 || m === 1 || m === 2) s = "winter";
+      else if (m >= 3 && m <= 5) s = "spring";
+      else if (m >= 6 && m <= 8) s = "summer";
+      else if (m >= 9 && m <= 11) s = "autumn";
+      document.documentElement.dataset.season = s;
+    })();
 
-      let currentSeason = "default";
-      if (m === 12 && (d === 24 || d === 25)) currentSeason = "christmas-eve";
-      else if ((m === 10 && d >= 25) || (m === 11 && d <= 2)) currentSeason = "halloween";
-      else if ((m === 12 && d >= 15) || (m === 1 && d <= 5)) currentSeason = "christmas";
-      else if (m === 12 || m === 1 || m === 2) currentSeason = "winter";
-      else if (m >= 3 && m <= 5) currentSeason = "spring";
-      else if (m >= 6 && m <= 8) currentSeason = "summer";
-      else if (m >= 9 && m <= 11) currentSeason = "autumn";
-
-      document.documentElement.dataset.season = currentSeason;
+    // ===== Footer seasonal text =====
+    (function () {
+      const s = document.documentElement.dataset.season;
+      const footer = document.getElementById('footer-text');
+      if (s === 'halloween') footer.textContent = 'trick or treat · no bugs · clean code';
+      else if (s === 'christmas') footer.textContent = 'silent night · clean signal';
+      else if (s === 'christmas-eve') footer.textContent = 'holy night · calm signal';
+      else if (s === 'winter') footer.textContent = 'cold air · warm code';
+      else if (s === 'spring') footer.textContent = 'fresh bloom · clean builds';
+      else if (s === 'summer') footer.textContent = 'bright days · clean deploys';
+      else if (s === 'autumn') footer.textContent = 'soft amber · steady code';
+      else footer.textContent = 'no noise · no tracking · no ads · no explanation';
     })();
 
     // ===== Discord Copy =====
-    const dBtn = document.getElementById('discordBtn');
-    async function copyDiscord() {
-      const name = dBtn.dataset.name;
-      try {
-        await navigator.clipboard.writeText(name);
-      } catch (e) {
+    async function copyDiscord(btn) {
+      const name = btn.dataset.name || 'alphav5';
+      try { await navigator.clipboard.writeText(name); }
+      catch (e) {
         const ta = document.createElement('textarea');
-        ta.value = name;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        ta.remove();
+        ta.value = name; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
       }
-      const old = dBtn.innerHTML;
-      dBtn.innerHTML = '✓ Copied';
-      setTimeout(() => dBtn.innerHTML = old, 1200);
+      const old = btn.innerHTML;
+      btn.innerHTML = '✓ Copied';
+      setTimeout(() => btn.innerHTML = old, 1200);
     }
-    dBtn.addEventListener('click', copyDiscord);
+    document.getElementById('discordBtn').addEventListener('click', e => copyDiscord(e.currentTarget));
+    document.getElementById('footerDiscordBtn').addEventListener('click', e => copyDiscord(e.currentTarget));
 
-    // ===== Discord Presence (public via Lanyard) =====
+    // ===== Discord Presence =====
     (function () {
       const card = document.getElementById('discordCard');
-      if (!card) return;
       const userId = card.dataset.userId;
-      if (!userId) return;
-
       const avatarEl = card.querySelector('.discord-avatar');
+      const skeletonEl = card.querySelector('.discord-avatar-skeleton');
       const decoEl = card.querySelector('.discord-decoration');
       const nameEl = card.querySelector('.discord-name');
       const statusEl = card.querySelector('.discord-status');
@@ -153,32 +323,26 @@
 
           avatarEl.src = avatarUrl;
           avatarEl.alt = `${user.username} avatar`;
-          nameEl.textContent = user.display_name || user.username;
-
-          const status = data.discord_status || 'offline';
-          const statusLabels = {
-            online: 'online',
-            idle: 'idle',
-            dnd: 'do not disturb',
-            offline: 'offline'
+          avatarEl.onload = () => {
+            skeletonEl.style.display = 'none';
+            avatarEl.style.display = 'block';
           };
+          avatarEl.onerror = () => { skeletonEl.style.display = 'none'; avatarEl.style.display = 'block'; };
+
+          nameEl.textContent = user.display_name || user.username;
+          const status = data.discord_status || 'offline';
           statusEl.dataset.status = status;
-          statusEl.textContent = statusLabels[status] || status;
+          statusEl.textContent = { online: 'online', idle: 'idle', dnd: 'do not disturb', offline: 'offline' }[status] || status;
 
           const activity = (data.activities || []).find(a => a.type !== 4);
-          if (!activity) {
-            activityEl.textContent = 'No activity';
-          } else if (activity.name === 'Spotify') {
-            const song = activity.details || 'Unknown song';
-            const artist = activity.state || 'Unknown artist';
-            activityEl.textContent = `Spotify: ${artist} - ${song}`;
+          if (!activity) { activityEl.textContent = 'No activity'; }
+          else if (activity.name === 'Spotify') {
+            activityEl.textContent = `♪ ${activity.state || '?'} — ${activity.details || '?'}`;
           } else {
             const parts = [];
             if (activity.details) parts.push(activity.details);
             if (activity.state) parts.push(activity.state);
-            activityEl.textContent = parts.length
-              ? `${activity.name}: ${parts.join(' - ')}`
-              : activity.name;
+            activityEl.textContent = parts.length ? `${activity.name}: ${parts.join(' · ')}` : activity.name;
           }
 
           const deco = user.avatar_decoration_data && user.avatar_decoration_data.asset;
@@ -186,11 +350,11 @@
             decoEl.src = `https://cdn.discordapp.com/avatar-decoration-presets/${deco}.png`;
             decoEl.alt = 'Avatar decoration';
             decoEl.style.display = 'block';
-          } else {
-            decoEl.style.display = 'none';
-          }
+          } else { decoEl.style.display = 'none'; }
         })
         .catch(() => {
+          skeletonEl.style.display = 'none';
+          avatarEl.style.display = 'block';
           statusEl.dataset.status = 'offline';
           statusEl.textContent = 'offline';
           activityEl.textContent = 'Presence unavailable';
@@ -198,95 +362,54 @@
         });
     })();
 
-    // ===== Footer seasonal text =====
-    (function () {
-      const s = document.documentElement.dataset.season;
-      const footer = document.getElementById('footer-text');
-
-      if (s === 'halloween') footer.textContent = 'trick or treat · no bugs · clean code';
-      else if (s === 'christmas') footer.textContent = 'silent night · clean signal';
-      else if (s === 'christmas-eve') footer.textContent = 'holy night · calm signal';
-      else if (s === 'winter') footer.textContent = 'cold air · warm code';
-      else if (s === 'spring') footer.textContent = 'fresh bloom · clean builds';
-      else if (s === 'summer') footer.textContent = 'bright days · clean deploys';
-      else if (s === 'autumn') footer.textContent = 'soft amber · steady code';
-      else footer.textContent = 'no noise · no tracking · no ads · no explanation';
-    })();
-
-    // ===== Cursor Glow Follow + Snap =====
+    // ===== Cursor Glow =====
     const glow = document.getElementById('cursor-glow');
-    const buttons = document.querySelectorAll('.btn');
-
-    let mouseX = innerWidth / 2;
-    let mouseY = innerHeight / 2;
-    let gx = mouseX;
-    let gy = mouseY;
-    let locked = false;
-
+    const btns = document.querySelectorAll('.btn');
+    let mouseX = innerWidth / 2, mouseY = innerHeight / 2, gx = mouseX, gy = mouseY, locked = false;
     window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-
-    let rafId = null;
+    let rafId;
     function animate() {
-      if (!locked) {
-        gx += (mouseX - gx) * 0.16;
-        gy += (mouseY - gy) * 0.16;
-        glow.style.left = gx + 'px';
-        glow.style.top = gy + 'px';
-      }
+      if (!locked) { gx += (mouseX - gx) * 0.14; gy += (mouseY - gy) * 0.14; glow.style.left = gx + 'px'; glow.style.top = gy + 'px'; }
       rafId = requestAnimationFrame(animate);
     }
     animate();
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        if (rafId) cancelAnimationFrame(rafId);
-      } else {
-        animate();
-      }
-    });
-
-    buttons.forEach(btn => {
+    document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(rafId); else animate(); });
+    btns.forEach(btn => {
       btn.addEventListener('mouseenter', () => {
-        const r = btn.getBoundingClientRect();
-        locked = true;
-
-        glow.style.left = (r.left + r.width / 2) + 'px';
-        glow.style.top = (r.top + r.height / 2) + 'px';
-        glow.style.width = (r.width + 24) + 'px';
-        glow.style.height = (r.height + 24) + 'px';
+        const r = btn.getBoundingClientRect(); locked = true;
+        glow.style.left = (r.left + r.width / 2) + 'px'; glow.style.top = (r.top + r.height / 2) + 'px';
+        glow.style.width = (r.width + 24) + 'px'; glow.style.height = (r.height + 24) + 'px';
         glow.style.borderRadius = '18px';
-
-        glow.style.background = `
-          linear-gradient(90deg, var(--snap-soft), var(--snap-strong), var(--snap-soft)),
-          linear-gradient(0deg, var(--snap-soft), var(--snap-strong), var(--snap-soft))
-        `;
-        glow.style.filter = 'blur(18px)';
-        glow.style.opacity = '.62';
+        glow.style.background = `linear-gradient(90deg, var(--snap-soft), var(--snap-strong), var(--snap-soft)), linear-gradient(0deg, var(--snap-soft), var(--snap-strong), var(--snap-soft))`;
+        glow.style.filter = 'blur(18px)'; glow.style.opacity = '.62';
       });
-
       btn.addEventListener('mouseleave', () => {
         locked = false;
-
-        glow.style.width = '260px';
-        glow.style.height = '260px';
-        glow.style.borderRadius = '50%';
-        glow.style.background = `
-          radial-gradient(circle, var(--glow-main), var(--glow-soft), transparent 65%)
-        `;
-        glow.style.filter = 'blur(20px)';
-        glow.style.opacity = '.9';
+        glow.style.width = '260px'; glow.style.height = '260px'; glow.style.borderRadius = '50%';
+        glow.style.background = `radial-gradient(circle, var(--glow-main), var(--glow-soft), transparent 65%)`;
+        glow.style.filter = 'blur(20px)'; glow.style.opacity = '.9';
       });
     });
 
+    // ===== Meta pills =====
     const themeEl = document.getElementById('themeName');
     const motionEl = document.getElementById('motionName');
-
     function tickMeta() {
       themeEl.textContent = document.documentElement.dataset.season || 'default';
       motionEl.textContent = document.documentElement.dataset.motion === 'reduced' ? 'reduced' : 'full';
     }
-    tickMeta();
-    setInterval(tickMeta, 1000);
+    tickMeta(); setInterval(tickMeta, 1000);
+
+    // ===== Nav scroll effect =====
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ===== Scroll reveal =====
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.section, .project-card, .stack-group, .about-text, .about-tags').forEach(el => observer.observe(el));
 
     // ===== Command Palette =====
     const palette = document.getElementById('palette');
@@ -294,134 +417,48 @@
     const cmdList = document.getElementById('cmdList');
 
     const COMMANDS = [
-      {
-        key: 'github',
-        name: 'Open GitHub',
-        desc: 'Go to github.com/AlphaGlyph1371',
-        run: () => window.open('https://github.com/AlphaGlyph1371', '_blank', 'noopener,noreferrer')
-      },
-      {
-        key: 'discord',
-        name: 'Copy Discord',
-        desc: 'Copy: alphav5',
-        run: () => copyDiscord()
-      },
-      {
-        key: 'season',
-        name: 'Next Season Theme',
-        desc: 'Cycle: default → spring → summer → autumn → winter → halloween → christmas → christmas-eve',
-        run: () => window.season.next()
-      },
-      {
-        key: 'motion',
-        name: 'Toggle Reduced Motion',
-        desc: 'Disable animations if you want it calmer',
-        run: () => {
-          const html = document.documentElement;
-          html.dataset.motion = (html.dataset.motion === 'reduced') ? 'full' : 'reduced';
-          tickMeta();
-        }
-      }
+      { key: 'github', name: 'Open GitHub', desc: 'go to github.com/AlphaGlyph1371', run: () => window.open('https://github.com/AlphaGlyph1371', '_blank', 'noopener,noreferrer') },
+      { key: 'discord', name: 'Copy Discord', desc: 'copy: alphav5', run: () => copyDiscord(document.getElementById('discordBtn')) },
+      { key: 'about', name: 'Jump to About', desc: 'scroll to about section', run: () => document.getElementById('about').scrollIntoView({ behavior: 'smooth' }) },
+      { key: 'projects', name: 'Jump to Projects', desc: 'scroll to projects section', run: () => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' }) },
+      { key: 'stack', name: 'Jump to Stack', desc: 'scroll to stack section', run: () => document.getElementById('stack').scrollIntoView({ behavior: 'smooth' }) },
+      { key: 'season', name: 'Next Season Theme', desc: 'cycle: default → spring → summer → autumn → winter → halloween → christmas → christmas-eve', run: () => window.season.next() },
+      { key: 'motion', name: 'Toggle Reduced Motion', desc: 'disable animations if you want it calmer', run: () => { const h = document.documentElement; h.dataset.motion = h.dataset.motion === 'reduced' ? 'full' : 'reduced'; tickMeta(); } }
     ];
 
-    function openPalette() {
-      palette.dataset.open = "true";
-      palette.setAttribute('aria-hidden', 'false');
-      cmdInput.value = "";
-      renderCommands("");
-      cmdInput.focus();
-    }
+    function openPalette() { palette.dataset.open = "true"; palette.setAttribute('aria-hidden', 'false'); cmdInput.value = ""; renderCommands(""); cmdInput.focus(); }
+    function closePalette() { palette.dataset.open = "false"; palette.setAttribute('aria-hidden', 'true'); cmdInput.blur(); }
 
-    function closePalette() {
-      palette.dataset.open = "false";
-      palette.setAttribute('aria-hidden', 'true');
-      cmdInput.blur();
-    }
-
-    const openPaletteBtn = document.getElementById('openPaletteBtn');
-    if (openPaletteBtn) openPaletteBtn.addEventListener('click', openPalette);
-    const closePaletteBtn = document.getElementById('closePaletteBtn');
-    if (closePaletteBtn) closePaletteBtn.addEventListener('click', closePalette);
+    document.getElementById('openPaletteBtn').addEventListener('click', openPalette);
+    document.getElementById('closePaletteBtn').addEventListener('click', closePalette);
 
     function renderCommands(filter) {
       const q = filter.trim().toLowerCase();
-      const items = COMMANDS.filter(c =>
-        !q ||
-        c.key.includes(q) ||
-        c.name.toLowerCase().includes(q) ||
-        c.desc.toLowerCase().includes(q)
-      );
-
-      cmdList.innerHTML = items.map(c => `
-        <div class="cmd" data-key="${c.key}">
-          <div class="left">
-            <div class="name">${c.name}</div>
-            <div class="desc">${c.desc}</div>
-          </div>
-          <kbd>↵</kbd>
-        </div>
-      `).join("");
-
+      const items = COMMANDS.filter(c => !q || c.key.includes(q) || c.name.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q));
+      cmdList.innerHTML = items.map(c => `<div class="cmd" data-key="${c.key}"><div class="left"><div class="name">${c.name}</div><div class="desc">${c.desc}</div></div><kbd>↵</kbd></div>`).join("");
       cmdList.querySelectorAll('.cmd').forEach(el => {
-        el.addEventListener('click', () => {
-          const key = el.dataset.key;
-          const cmd = COMMANDS.find(x => x.key === key);
-          if (!cmd) return;
-          cmd.run();
-          closePalette();
-        });
+        el.addEventListener('click', () => { const cmd = COMMANDS.find(x => x.key === el.dataset.key); if (cmd) { cmd.run(); closePalette(); } });
       });
     }
-
     cmdInput.addEventListener('input', e => renderCommands(e.target.value));
     cmdInput.addEventListener('keydown', e => {
       if (e.key === 'Escape') closePalette();
-      if (e.key === 'Enter') {
-        const first = cmdList.querySelector('.cmd');
-        if (!first) return;
-        first.click();
-      }
+      if (e.key === 'Enter') { const first = cmdList.querySelector('.cmd'); if (first) first.click(); }
     });
-
-    palette.addEventListener('mousedown', (e) => {
-      if (e.target === palette) closePalette();
-    });
-
-    // hotkeys
-    window.addEventListener('keydown', (e) => {
+    palette.addEventListener('mousedown', e => { if (e.target === palette) closePalette(); });
+    window.addEventListener('keydown', e => {
       const isMac = navigator.platform.toLowerCase().includes('mac');
-      const k = e.key.toLowerCase();
-
-      if ((isMac ? e.metaKey : e.ctrlKey) && k === 'k') {
-        e.preventDefault();
-        if (palette.dataset.open === "true") closePalette();
-        else openPalette();
-      }
-      if (k === '?' && palette.dataset.open !== "true") {
-        // quick open (optional)
-        openPalette();
-      }
+      if ((isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); palette.dataset.open === "true" ? closePalette() : openPalette(); }
+      if (e.key === '?' && palette.dataset.open !== "true") openPalette();
       if (e.key === 'Escape' && palette.dataset.open === "true") closePalette();
     });
 
-    // ===== Intro glitch =====
-    (function () {
-      const html = document.documentElement;
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (html.dataset.motion === 'reduced' || prefersReduced) return;
-
-      document.body.classList.add('intro-glitch');
-      setTimeout(() => document.body.classList.remove('intro-glitch'), 260);
-    })();
-
-    // ===== Console season control (kept) =====
+    // ===== Season control =====
     window.season = {
       set(name) {
         const valid = ['default', 'spring', 'summer', 'autumn', 'winter', 'halloween', 'christmas', 'christmas-eve'];
-        if (!valid.includes(name)) return console.warn('Invalid:', name);       
-
+        if (!valid.includes(name)) return console.warn('Invalid:', name);
         document.documentElement.dataset.season = name;
-
         const footer = document.getElementById('footer-text');
         if (name === 'halloween') footer.textContent = 'trick or treat · no bugs · clean code';
         else if (name === 'christmas') footer.textContent = 'silent night · clean signal';
@@ -431,20 +468,14 @@
         else if (name === 'summer') footer.textContent = 'bright days · clean deploys';
         else if (name === 'autumn') footer.textContent = 'soft amber · steady code';
         else footer.textContent = 'no noise · no tracking · no ads · no explanation';
-
         tickMeta();
         console.info('Season set to:', name);
       },
       current() { return document.documentElement.dataset.season; },
-      next() {
-        const order = ['default', 'spring', 'summer', 'autumn', 'winter', 'halloween', 'christmas', 'christmas-eve'];
-        const i = order.indexOf(this.current());
-        this.set(order[(i + 1) % order.length]);
-      }
+      next() { const order = ['default', 'spring', 'summer', 'autumn', 'winter', 'halloween', 'christmas', 'christmas-eve']; this.set(order[(order.indexOf(this.current()) + 1) % order.length]); }
     };
 
-    console.info('%cCommands: Ctrl/⌘K', 'color: var(--accent); font-family: monospace');
+    console.info('%cAlpha · Ctrl/⌘K for commands · season.next() for themes', 'color: #8df6ff; font-family: monospace; font-size: 11px;');
   </script>
 </body>
-
 </html>
