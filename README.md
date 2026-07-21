@@ -1,3 +1,7 @@
-Hi, what's up! This is the source code of my Website which you can find at https://alphaglyph.dev
+# My Website
 
-There's really no reason to keep it private xD
+This repository contains the source code of my website
+
+» 🌐 https://alphaglyph.dev
+
+Feel free to explore, modify and use the code :3
