@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <title>Alpha</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Alpha's personal website — projects, tech stack and Discord shop." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -34,6 +35,7 @@
     <div class="nav-links">
       <a href="#about" class="nav-link">about</a>
       <a href="#projects" class="nav-link">projects</a>
+      <a href="#shop" class="nav-link">shop</a>
       <a href="#stack" class="nav-link">stack</a>
     </div>
     <button class="kbd-btn nav-palette" id="openPaletteBtn" type="button" aria-label="Open command palette">
@@ -111,7 +113,7 @@
       <h2 class="section-title">things i <span class="accent-text">built</span></h2>
       <div class="projects-grid">
 
-      <a class="project-card private" href="#" target="_blank" rel="noopener noreferrer">
+      <article class="project-card private">
           <div class="project-header">
             <span class="project-status live">active</span>
             <span class="project-arrow">🔒</span>
@@ -121,9 +123,9 @@
           <div class="project-stack">
             <span>C++</span>
           </div>
-        </a>
+      </article>
         
-        <a class="project-card private" href="#" target="_blank" rel="noopener noreferrer">
+        <article class="project-card private">
           <div class="project-header">
             <span class="project-status live">active</span>
             <span class="project-arrow">🔒</span>
@@ -133,9 +135,9 @@
           <div class="project-stack">
             <span>C++</span><span>Rust</span><span>JavaScript</span>
           </div>
-        </a>
+        </article>
 
-        <a class="project-card private" href="#" target="_blank" rel="noopener noreferrer">
+        <article class="project-card private">
           <div class="project-header">
             <span class="project-status live">active</span>
             <span class="project-arrow">🔒</span>
@@ -145,7 +147,7 @@
           <div class="project-stack">
             <span>C++</span>
           </div>
-        </a>
+        </article>
 
         <a class="project-card" href="https://github.com/AlphaGlyph1371/WildlandsToolkit" target="_blank" rel="noopener noreferrer">
           <div class="project-header">
@@ -159,7 +161,7 @@
           </div>
         </a>
 
-        <a class="project-card private" href="#" target="_blank" rel="noopener noreferrer">
+        <article class="project-card private">
           <div class="project-header">
             <span class="project-status live">active</span>
             <span class="project-arrow">🔒</span>
@@ -169,9 +171,9 @@
           <div class="project-stack">
             <span>N/A</span>
           </div>
-        </a>
+        </article>
 
-        <a class="project-card private" href="#" target="_blank" rel="noopener noreferrer">
+        <article class="project-card private">
           <div class="project-header">
             <span class="project-status wip">started</span>
             <span class="project-arrow">🔒</span>
@@ -181,9 +183,9 @@
           <div class="project-stack">
             <span>C#</span>
           </div>
-        </a>
+        </article>
 
-        <a class="project-card private" href="#" target="_blank" rel="noopener noreferrer">
+        <article class="project-card private">
           <div class="project-header">
             <span class="project-status archived">canceled</span>
             <span class="project-arrow">🔒</span>
@@ -193,7 +195,7 @@
           <div class="project-stack">
             <span>C#</span>
           </div>
-        </a>
+        </article>
 
         <a class="project-card" href="https://ai-repertoire.com/" target="_blank" rel="noopener noreferrer">
           <div class="project-header">
@@ -211,10 +213,44 @@
     </div>
   </section>
 
+  <!-- SHOP -->
+  <section class="section shop-section" id="shop">
+    <div class="section-inner">
+      <div class="section-tag">03 / shop</div>
+      <h2 class="section-title">check out my <span class="accent-text">shop</span></h2>
+      <div class="shop-layout">
+        <div class="shop-copy">
+          <div class="shop-eyebrow">Devoria</div>
+          <h3>OG Fortnite Store, Tweaks &amp; open source tools — all in one place.</h3>
+          <p>Join the shop server to see what's available, get release updates and reach me directly if you need help.</p>
+          <div class="shop-status" aria-live="polite">
+            <span class="shop-status-dot" aria-hidden="true"></span>
+            <span id="shopServerStatus">Connecting to Discord…</span>
+          </div>
+          <a class="btn shop-join" id="shopJoinLink" href="https://discord.com/channels/1498761456735354890" target="_blank" rel="noopener noreferrer">
+            Open in Discord <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <div class="shop-widget-wrap">
+          <iframe
+            class="shop-widget"
+            src="https://discord.com/widget?id=1498761456735354890&amp;theme=dark"
+            width="350"
+            height="500"
+            title="Alpha shop Discord server"
+            loading="lazy"
+            allowtransparency="true"
+            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- STACK -->
   <section class="section" id="stack">
     <div class="section-inner">
-      <div class="section-tag">03 / stack</div>
+      <div class="section-tag">04 / stack</div>
       <h2 class="section-title">what i <span class="accent-text">use</span></h2>
       <div class="stack-grid">
         <div class="stack-group">
@@ -258,9 +294,10 @@
 
   <!-- Command palette -->
   <div class="palette-backdrop" id="palette" data-open="false" aria-hidden="true">
-    <div class="palette" role="dialog" aria-label="Command palette">
+    <div class="palette" role="dialog" aria-modal="true" aria-labelledby="paletteTitle">
       <div class="palette-top">
-        <input id="cmdInput" placeholder="Type a command… (github / discord / season / motion)" autocomplete="off" />
+        <label class="sr-only" id="paletteTitle" for="cmdInput">Command palette</label>
+        <input id="cmdInput" placeholder="Type a command… (github / discord / shop / season / motion)" autocomplete="off" />
         <button class="kbd-btn" id="closePaletteBtn" type="button" aria-label="Close command palette">
           <div class="hint">Esc</div>
         </button>
@@ -269,244 +306,6 @@
     </div>
   </div>
 
-  <script>
-    // ===== Font load gate for intro glitch =====
-    function runIntroGlitch() {
-      const html = document.documentElement;
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (html.dataset.motion === 'reduced' || prefersReduced) return;
-      document.body.classList.add('intro-glitch');
-      setTimeout(() => document.body.classList.remove('intro-glitch'), 400);
-    }
-
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(runIntroGlitch);
-    } else {
-      window.addEventListener('load', runIntroGlitch);
-    }
-
-    // ===== Season Detection =====
-    (function () {
-      const now = new Date();
-      const m = now.getMonth() + 1;
-      const d = now.getDate();
-      let s = "default";
-      if (m === 12 && (d === 24 || d === 25)) s = "christmas-eve";
-      else if ((m === 10 && d >= 25) || (m === 11 && d <= 2)) s = "halloween";
-      else if ((m === 12 && d >= 15) || (m === 1 && d <= 5)) s = "christmas";
-      else if (m === 12 || m === 1 || m === 2) s = "winter";
-      else if (m >= 3 && m <= 5) s = "spring";
-      else if (m >= 6 && m <= 8) s = "summer";
-      else if (m >= 9 && m <= 11) s = "autumn";
-      document.documentElement.dataset.season = s;
-    })();
-
-    // ===== Footer seasonal text =====
-    (function () {
-      const s = document.documentElement.dataset.season;
-      const footer = document.getElementById('footer-text');
-      if (s === 'halloween') footer.textContent = 'trick or treat · no bugs · clean code';
-      else if (s === 'christmas') footer.textContent = 'silent night · clean signal';
-      else if (s === 'christmas-eve') footer.textContent = 'holy night · calm signal';
-      else if (s === 'winter') footer.textContent = 'cold air · warm code';
-      else if (s === 'spring') footer.textContent = 'fresh bloom · clean builds';
-      else if (s === 'summer') footer.textContent = 'bright days · clean deploys';
-      else if (s === 'autumn') footer.textContent = 'soft amber · steady code';
-      else footer.textContent = 'no noise · no tracking · no ads · no explanation';
-    })();
-
-    // ===== Discord Copy =====
-    async function copyDiscord(btn) {
-      const name = btn.dataset.name || 'alphav5';
-      try { await navigator.clipboard.writeText(name); }
-      catch (e) {
-        const ta = document.createElement('textarea');
-        ta.value = name; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
-      }
-      const old = btn.innerHTML;
-      btn.innerHTML = '✓ Copied';
-      setTimeout(() => btn.innerHTML = old, 1200);
-    }
-    document.getElementById('discordBtn').addEventListener('click', e => copyDiscord(e.currentTarget));
-    document.getElementById('footerDiscordBtn').addEventListener('click', e => copyDiscord(e.currentTarget));
-
-    // ===== Discord Presence =====
-    (function () {
-      const card = document.getElementById('discordCard');
-      const userId = card.dataset.userId;
-      const avatarEl = card.querySelector('.discord-avatar');
-      const skeletonEl = card.querySelector('.discord-avatar-skeleton');
-      const decoEl = card.querySelector('.discord-decoration');
-      const nameEl = card.querySelector('.discord-name');
-      const statusEl = card.querySelector('.discord-status');
-      const activityEl = card.querySelector('.discord-activity');
-
-      fetch(`https://api.lanyard.rest/v1/users/${userId}`)
-        .then(r => r.json())
-        .then(({ data }) => {
-          if (!data || !data.discord_user) throw new Error('no data');
-          const user = data.discord_user;
-          const avatarHash = user.avatar;
-          const fallbackIndex = Number(user.discriminator || 0) % 5;
-          const avatarUrl = avatarHash
-            ? `https://cdn.discordapp.com/avatars/${userId}/${avatarHash}.png?size=128`
-            : `https://cdn.discordapp.com/embed/avatars/${fallbackIndex}.png`;
-
-          avatarEl.src = avatarUrl;
-          avatarEl.alt = `${user.username} avatar`;
-          avatarEl.onload = () => {
-            skeletonEl.style.display = 'none';
-            avatarEl.style.display = 'block';
-          };
-          avatarEl.onerror = () => { skeletonEl.style.display = 'none'; avatarEl.style.display = 'block'; };
-
-          nameEl.textContent = user.display_name || user.username;
-          const status = data.discord_status || 'offline';
-          statusEl.dataset.status = status;
-          statusEl.textContent = { online: 'online', idle: 'idle', dnd: 'do not disturb', offline: 'offline' }[status] || status;
-
-          const activity = (data.activities || []).find(a => a.type !== 4);
-          if (!activity) { activityEl.textContent = 'No activity'; }
-          else if (activity.name === 'Spotify') {
-            activityEl.textContent = `♪ ${activity.state || '?'} — ${activity.details || '?'}`;
-          } else {
-            const parts = [];
-            if (activity.details) parts.push(activity.details);
-            if (activity.state) parts.push(activity.state);
-            activityEl.textContent = parts.length ? `${activity.name}: ${parts.join(' · ')}` : activity.name;
-          }
-
-          const deco = user.avatar_decoration_data && user.avatar_decoration_data.asset;
-          if (deco) {
-            decoEl.src = `https://cdn.discordapp.com/avatar-decoration-presets/${deco}.png`;
-            decoEl.alt = 'Avatar decoration';
-            decoEl.style.display = 'block';
-          } else { decoEl.style.display = 'none'; }
-        })
-        .catch(() => {
-          skeletonEl.style.display = 'none';
-          avatarEl.style.display = 'block';
-          statusEl.dataset.status = 'offline';
-          statusEl.textContent = 'offline';
-          activityEl.textContent = 'Presence unavailable';
-          decoEl.style.display = 'none';
-        });
-    })();
-
-    // ===== Cursor Glow =====
-    const glow = document.getElementById('cursor-glow');
-    const btns = document.querySelectorAll('.btn');
-    let mouseX = innerWidth / 2, mouseY = innerHeight / 2, gx = mouseX, gy = mouseY, locked = false;
-    window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-    let rafId;
-    function animate() {
-      if (!locked) { gx += (mouseX - gx) * 0.14; gy += (mouseY - gy) * 0.14; glow.style.left = gx + 'px'; glow.style.top = gy + 'px'; }
-      rafId = requestAnimationFrame(animate);
-    }
-    animate();
-    document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(rafId); else animate(); });
-    btns.forEach(btn => {
-      btn.addEventListener('mouseenter', () => {
-        const r = btn.getBoundingClientRect(); locked = true;
-        glow.style.left = (r.left + r.width / 2) + 'px'; glow.style.top = (r.top + r.height / 2) + 'px';
-        glow.style.width = (r.width + 24) + 'px'; glow.style.height = (r.height + 24) + 'px';
-        glow.style.borderRadius = '18px';
-        glow.style.background = `linear-gradient(90deg, var(--snap-soft), var(--snap-strong), var(--snap-soft)), linear-gradient(0deg, var(--snap-soft), var(--snap-strong), var(--snap-soft))`;
-        glow.style.filter = 'blur(18px)'; glow.style.opacity = '.62';
-      });
-      btn.addEventListener('mouseleave', () => {
-        locked = false;
-        glow.style.width = '260px'; glow.style.height = '260px'; glow.style.borderRadius = '50%';
-        glow.style.background = `radial-gradient(circle, var(--glow-main), var(--glow-soft), transparent 65%)`;
-        glow.style.filter = 'blur(20px)'; glow.style.opacity = '.9';
-      });
-    });
-
-    // ===== Meta pills =====
-    const themeEl = document.getElementById('themeName');
-    const motionEl = document.getElementById('motionName');
-    function tickMeta() {
-      themeEl.textContent = document.documentElement.dataset.season || 'default';
-      motionEl.textContent = document.documentElement.dataset.motion === 'reduced' ? 'reduced' : 'full';
-    }
-    tickMeta(); setInterval(tickMeta, 1000);
-
-    // ===== Nav scroll effect =====
-    window.addEventListener('scroll', () => {
-      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
-    }, { passive: true });
-
-    // ===== Scroll reveal =====
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.section, .project-card, .stack-group, .about-text, .about-tags').forEach(el => observer.observe(el));
-
-    // ===== Command Palette =====
-    const palette = document.getElementById('palette');
-    const cmdInput = document.getElementById('cmdInput');
-    const cmdList = document.getElementById('cmdList');
-
-    const COMMANDS = [
-      { key: 'github', name: 'Open GitHub', desc: 'go to github.com/AlphaGlyph1371', run: () => window.open('https://github.com/AlphaGlyph1371', '_blank', 'noopener,noreferrer') },
-      { key: 'discord', name: 'Copy Discord', desc: 'copy: alphav5', run: () => copyDiscord(document.getElementById('discordBtn')) },
-      { key: 'about', name: 'Jump to About', desc: 'scroll to about section', run: () => document.getElementById('about').scrollIntoView({ behavior: 'smooth' }) },
-      { key: 'projects', name: 'Jump to Projects', desc: 'scroll to projects section', run: () => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' }) },
-      { key: 'stack', name: 'Jump to Stack', desc: 'scroll to stack section', run: () => document.getElementById('stack').scrollIntoView({ behavior: 'smooth' }) },
-      { key: 'season', name: 'Next Season Theme', desc: 'cycle: default → spring → summer → autumn → winter → halloween → christmas → christmas-eve', run: () => window.season.next() },
-      { key: 'motion', name: 'Toggle Reduced Motion', desc: 'disable animations if you want it calmer', run: () => { const h = document.documentElement; h.dataset.motion = h.dataset.motion === 'reduced' ? 'full' : 'reduced'; tickMeta(); } }
-    ];
-
-    function openPalette() { palette.dataset.open = "true"; palette.setAttribute('aria-hidden', 'false'); cmdInput.value = ""; renderCommands(""); cmdInput.focus(); }
-    function closePalette() { palette.dataset.open = "false"; palette.setAttribute('aria-hidden', 'true'); cmdInput.blur(); }
-
-    document.getElementById('openPaletteBtn').addEventListener('click', openPalette);
-    document.getElementById('closePaletteBtn').addEventListener('click', closePalette);
-
-    function renderCommands(filter) {
-      const q = filter.trim().toLowerCase();
-      const items = COMMANDS.filter(c => !q || c.key.includes(q) || c.name.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q));
-      cmdList.innerHTML = items.map(c => `<div class="cmd" data-key="${c.key}"><div class="left"><div class="name">${c.name}</div><div class="desc">${c.desc}</div></div><kbd>↵</kbd></div>`).join("");
-      cmdList.querySelectorAll('.cmd').forEach(el => {
-        el.addEventListener('click', () => { const cmd = COMMANDS.find(x => x.key === el.dataset.key); if (cmd) { cmd.run(); closePalette(); } });
-      });
-    }
-    cmdInput.addEventListener('input', e => renderCommands(e.target.value));
-    cmdInput.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closePalette();
-      if (e.key === 'Enter') { const first = cmdList.querySelector('.cmd'); if (first) first.click(); }
-    });
-    palette.addEventListener('mousedown', e => { if (e.target === palette) closePalette(); });
-    window.addEventListener('keydown', e => {
-      const isMac = navigator.platform.toLowerCase().includes('mac');
-      if ((isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); palette.dataset.open === "true" ? closePalette() : openPalette(); }
-      if (e.key === '?' && palette.dataset.open !== "true") openPalette();
-      if (e.key === 'Escape' && palette.dataset.open === "true") closePalette();
-    });
-
-    // ===== Season control =====
-    window.season = {
-      set(name) {
-        const valid = ['default', 'spring', 'summer', 'autumn', 'winter', 'halloween', 'christmas', 'christmas-eve'];
-        if (!valid.includes(name)) return console.warn('Invalid:', name);
-        document.documentElement.dataset.season = name;
-        const footer = document.getElementById('footer-text');
-        if (name === 'halloween') footer.textContent = 'trick or treat · no bugs · clean code';
-        else if (name === 'christmas') footer.textContent = 'silent night · clean signal';
-        else if (name === 'christmas-eve') footer.textContent = 'holy night · calm signal';
-        else if (name === 'winter') footer.textContent = 'cold air · warm code';
-        else if (name === 'spring') footer.textContent = 'fresh bloom · clean builds';
-        else if (name === 'summer') footer.textContent = 'bright days · clean deploys';
-        else if (name === 'autumn') footer.textContent = 'soft amber · steady code';
-        else footer.textContent = 'no noise · no tracking · no ads · no explanation';
-        tickMeta();
-        console.info('Season set to:', name);
-      },
-      current() { return document.documentElement.dataset.season; },
-      next() { const order = ['default', 'spring', 'summer', 'autumn', 'winter', 'halloween', 'christmas', 'christmas-eve']; this.set(order[(order.indexOf(this.current()) + 1) % order.length]); }
-    };
-
-    console.info('%cAlpha · Ctrl/⌘K for commands · season.next() for themes', 'color: #8df6ff; font-family: monospace; font-size: 11px;');
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
